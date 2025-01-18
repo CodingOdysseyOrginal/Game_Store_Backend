@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 7310,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "username": "postgres",
+            "database": "GameDB",
+            "name": "PostgreSQL_Local"
+        }
+    ],
+    "livePreview.defaultPreviewPath": "/public/index.html"
+}
