@@ -11,8 +11,8 @@ async function fetchGames() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data = await response.json(); // Parse the response as JSON
-    console.log(data); // Log the parsed data
+    const data = await response.json(); 
+    console.log(data); 
   } catch (error) {
     console.error("Error fetching games:", error);
   }

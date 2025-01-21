@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllGames } from "../controllers/games.js";
+import { getAllGames, getById } from "../controllers/games.js";
 
 
 
@@ -7,7 +7,10 @@ import { getAllGames } from "../controllers/games.js";
 const router = express.Router();
 
 
-// GET Requests for all the movies
+// GET Requests for all the games
 router.get( "/", getAllGames);
+
+//GET BY ID Requests for one game at a time
+router.get("/:id", getById)
 
 export default router

@@ -1,47 +1,77 @@
-import { test, expect, describe } from "vitest";
+import { test, expect, describe, beforeAll, beforeEach } from "vitest";
 import request from "supertest";
-
 import app from "../app.js";
 
-describe("Testing GET ALL request", () => {
-  test("working route", async () => {
-    // ARRANGE: Send GET request to get all games
-    const response = await request(app).get("/games");
+// GET ALL TEST 
+describe("Testing GET /games request", () => {
+  let response;
 
-    // use as reference
-    // console.log(response.body)
+  beforeAll(async () => {
+    response = await request(app).get("/games");
+  });
 
-    // TESTS:
-    // 1. Check that response's content type is JSON
+  test("should return JSON response", () => {
     expect(response.headers["content-type"]).toMatch(/application\/json/);
+  });
 
-    // 2. Check if 'success' field is true
+  test("should have success field as true", () => {
     expect(response.body.success).toEqual(true);
+  });
 
-    // 3. Check if the response body is an object
+  test("should return an object as the body", () => {
     expect(typeof response.body).toBe("object");
+  });
 
-    // 4. Check if 'payload' is defined and is an array
-    if (response.body.payload) {
+  describe("Payload checks", () => {
+    test("should have a payload that is an array", () => {
       expect(Array.isArray(response.body.payload)).toBe(true);
+    });
 
-      // 5. Check different properties of the array
+    test("should contain games with required properties", () => {
       response.body.payload.forEach((game) => {
         expect(game).toHaveProperty("id");
-        expect(game).toHaveProperty("name");  
-        expect(game).toHaveProperty("rating");  
-        expect(game).toHaveProperty("category");  
-        expect(game).toHaveProperty("selection"); 
-        
-        //Check data types of each porperty
+        expect(game).toHaveProperty("name");
+        expect(game).toHaveProperty("rating");
+        expect(game).toHaveProperty("category");
+        expect(game).toHaveProperty("selection");
+      });
+    });
+
+    test("should validate property types of each game", () => {
+      response.body.payload.forEach((game) => {
         expect(typeof game.id).toBe("number");
         expect(typeof game.name).toBe("string");
         expect(typeof game.rating).toBe("string");
         expect(typeof game.category).toBe("string");
         expect(typeof game.selection).toBe("string");
       });
-    } else {
-      console.warn("Payload is undefined or null.");
-    }
+    });
+  });
+});
+
+// TEST GET BY ID 
+describe("Test the overall route of the GET BY ID", () => {
+  let response;
+
+  beforeEach(async () => {
+    response = await request(app).get("/games/2");
+    // console.log("Response:", response.body);
+  });
+
+  test("should return JSON response", () => {
+    expect(response.headers["content-type"]).toMatch(/application\/json/);
+  });
+
+  test("expect status code of 200", () => {
+    expect(response.status).toBe(200);
+  });
+
+  test("should return a valid game object", () => {
+    expect(response.body.success).toBe(true);
+    expect(response.body.payload).toBeDefined(); 
+    expect(response.body.payload).toHaveProperty("id");
+    expect(response.body.payload).toHaveProperty("name");
+    expect(response.body.payload).toHaveProperty("category");
+    expect(response.body.payload).toHaveProperty("selection");
   });
 });
