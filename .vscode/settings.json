@@ -9,6 +9,21 @@
             "username": "postgres",
             "database": "GameDB",
             "name": "PostgreSQL_Local"
+        },
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "previewLimit": 50,
+            "server": "dpg-cuaan4i3esus73el9rj0-a.oregon-postgres.render.com",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "MyRenderDB",
+            "database": "gamedb_us4g",
+            "username": "gamedb_us4g_user"
         }
     ],
     "livePreview.defaultPreviewPath": "/public/index.html"

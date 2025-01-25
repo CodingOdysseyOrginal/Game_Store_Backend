@@ -15,7 +15,12 @@ if (!databaseString) {
 
 // Set up a connection to pool and the database so the commands pass into the database.
 
-export const pool = new pg.Pool({ connectionString: databaseString });
+export const pool = new pg.Pool({
+  connectionString: databaseString,
+  ssl: {
+    rejectUnauthorized: false, // Allows for self-signed certificates, if necessary.
+  },
+});
 
 pool.on("connect", () => {
     console.log("Connected to the database");
