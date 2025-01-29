@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllGames, getById } from "../controllers/games.js";
+import { getAllGames, getById, createGame } from "../controllers/games.js";
 
 
 
@@ -12,5 +12,9 @@ router.get( "/", getAllGames);
 
 //GET BY ID Requests for one game at a time
 router.get("/:id", getById)
+
+//Create new game
+router.post("/", createGame);
+
 
 export default router

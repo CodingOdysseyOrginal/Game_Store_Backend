@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node bin/www.js",
+    "start": "nodemon bin/www.js",
     "dev": "node -r dotenv/config --watch bin/www.js",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"

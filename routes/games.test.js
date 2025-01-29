@@ -33,7 +33,7 @@ describe("Testing GET /games request", () => {
         expect(game).toHaveProperty("name");
         expect(game).toHaveProperty("rating");
         expect(game).toHaveProperty("category");
-        expect(game).toHaveProperty("selection");
+        expect(game).toHaveProperty("multiplayer");
       });
     });
 
@@ -43,7 +43,7 @@ describe("Testing GET /games request", () => {
         expect(typeof game.name).toBe("string");
         expect(typeof game.rating).toBe("string");
         expect(typeof game.category).toBe("string");
-        expect(typeof game.selection).toBe("string");
+        expect(typeof game.multiplayer).toBe("boolean");
       });
     });
   });
@@ -54,7 +54,7 @@ describe("Test the overall route of the GET BY ID", () => {
   let response;
 
   beforeEach(async () => {
-    response = await request(app).get("/games/2");
+    response = await request(app).get("/games/10");
     // console.log("Response:", response.body);
   });
 
@@ -72,6 +72,6 @@ describe("Test the overall route of the GET BY ID", () => {
     expect(response.body.payload).toHaveProperty("id");
     expect(response.body.payload).toHaveProperty("name");
     expect(response.body.payload).toHaveProperty("category");
-    expect(response.body.payload).toHaveProperty("selection");
+    expect(response.body.payload).toHaveProperty("multiplayer");
   });
 });
