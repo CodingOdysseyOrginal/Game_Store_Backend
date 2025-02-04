@@ -1,32 +1,21 @@
-import pg from "pg";
+import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-// Retrieves the database connection from the string.
-// make sure to reinstall the .env file with boht the string adn port.
-const databaseString = process.env.DB_CONNECTION;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
-if (!databaseString) {
+if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error(
-    "The connection to the database is not working so make sure you've put in the right parameters on the string OR youve not put in the .env file"
+    "Supabase connection details are missing in the .env file. Please check SUPABASE_URL and SUPABASE_ANON_KEY."
   );
 }
 
-// Set up a connection to pool and the database so the commands pass into the database.
+// Create the Supabase client
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export const pool = new pg.Pool({
-  connectionString: databaseString,
-  ssl: {
-    rejectUnauthorized: false, // Allows for self-signed certificates, if necessary.
-  },
-});
+console.log("Connected to Supabase");
 
-pool.on("connect", () => {
-    console.log("Connected to the database");
-  });
-  
-  pool.on("error", (err) => {
-    console.error("Unexpected error on idle client", err);
-    process.exit(-1);
-  });
+// Export Supabase client for use in other files
+export default supabase;

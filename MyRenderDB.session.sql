@@ -21,5 +21,4 @@ SELECT * FROM game;
 --     review_id INT,
 --     age_rating INT NOT NULL,
 --     company VARCHAR(255) NOT NULL,
---     FOREIGN KEY (review_id) REFERENCES review(review_id)
 -- );
