@@ -5,14 +5,14 @@ import app from "../../app.js";
 // Import the entire mocked module
 import * as gameModel from "../../models/games.js"; 
 
-// Mock Supabase interaction to prevent real DB modification
+
 vi.mock("../../models/games.js", () => ({
   upDateGameByIdConnectedToDB: vi.fn(),
 }));
 
 describe("PATCH /games/:id", () => {
   beforeEach(() => {
-    vi.clearAllMocks(); // Reset mock calls before each test
+    vi.clearAllMocks(); 
   });
 
   it("should update the game and return updated data", async () => {
@@ -66,7 +66,7 @@ describe("PATCH /games/:id", () => {
     const response = await request(app)
       .patch("/games/1")
       .send({ rating: 8.0 })
-      .expect(404); // Corrected from 400 to 404
+      .expect(404);
 
     expect(response.body).toEqual({
       success: false,
