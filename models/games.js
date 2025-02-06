@@ -98,3 +98,29 @@ export async function insertGameToDB(
     throw new Error(error.message);
   }
 }
+
+// Update game by ID in the database
+export async function upDateGameByIdConnectedToDB(gameId, updates) {
+  try {
+    if (!gameId) throw new Error("Game ID is required.");
+
+    const { data, error } = await supabase
+      .from('game')
+      .update(updates)
+      .eq('id', gameId)
+      .select(); 
+
+    if (error) {
+      throw new Error(`Error updating game: ${error.message}`);
+    }
+
+    if (!data.length) {
+      throw new Error(`Game with ID ${gameId} not found.`);
+    }
+
+    return data[0]; // Return the updated game
+  } catch (error) {
+    console.error("Error updating game in database:", error.message);
+    throw new Error(error.message);
+  }
+}

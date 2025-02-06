@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "payload": {
+    "id": 1,
+    "name": "The Last of Us",
+    "rating": 9.8,
+    "category": "Action-Adventure",
+    "multiplayer": false,
+    "descript": "Set in a post-apocalyptic world, The Last of Us follows Joel and Ellie as they navigate through a world ravaged by a deadly fungus. With gripping storytelling, intense combat, and emotional depth, this game redefined narrative-driven experiences.",
+    "release_date": "2013-06-14",
+    "age_rating": 18,
+    "company": "Naughty Dog"
+  }
+}

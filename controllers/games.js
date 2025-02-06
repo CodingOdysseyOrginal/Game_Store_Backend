@@ -11,6 +11,7 @@ import {
   getGameFromDB,
   getGameIdFromDB,
   insertGameToDB,
+  upDateGameByIdConnectedToDB
 } from "../models/games.js"; 
 
 // GET all request
@@ -73,10 +74,32 @@ export async function createGame(req, res) {
       company
     );
 
-    // Respond with the newly created game data
+    // Respond with the new game data
     res.status(201).json({ success: true, data: game });
   } catch (error) {
     const statusCode = error.message.includes("Missing required field") ? 422 : 500;
     res.status(statusCode).json({ success: false, message: error.message });
   }
 }
+
+//Update by id 
+export async function updateGameByID(req, res) {
+  try {
+    const { id } = req.params; 
+    const updates = req.body; 
+
+    // make sure the length is one 
+    if (Object.keys(updates).length === 0) {
+      return res.status(400).json({ success: false, message: "No update fields provided." });
+    }
+
+    const updatedGame = await upDateGameByIdConnectedToDB(id, updates);
+
+    res.status(200).json({ success: true, message: "Game updated successfully", data: updatedGame });
+  } catch (error) {
+    console.error("Error in updateGameByID controller", error);
+    res.status(404).json({ success: false, message: error.message });
+  }
+}
+
+

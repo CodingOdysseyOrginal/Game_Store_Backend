@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllGames, getById, createGame } from "../controllers/games.js";
+import { getAllGames, getById, createGame, updateGameByID } from "../controllers/games.js";
 
 
 
@@ -15,6 +15,9 @@ router.get("/:id", getById)
 
 //Create new game
 router.post("/", createGame);
+
+//update Game
+router.patch("/:id", updateGameByID)
 
 
 export default router
