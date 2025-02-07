@@ -1,6 +1,6 @@
 import { test, expect, describe, beforeAll, beforeEach } from "vitest";
 import request from "supertest";
-import app from "../../app.js";
+import app from "../../app.js"; 
 
 // GET ALL TEST 
 describe("Testing GET /games request", () => {

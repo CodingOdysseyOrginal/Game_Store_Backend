@@ -1,8 +1,6 @@
 import request from "supertest";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import app from "../../app.js";
-
-// Import the entire mocked module
+import app from "../../app.js"; 
 import * as gameModel from "../../models/games.js"; 
 
 

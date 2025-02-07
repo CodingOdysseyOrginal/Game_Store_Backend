@@ -103,21 +103,24 @@ export async function updateGameByID(req, res) {
   }
 }
 
-//Delete game by Id
+// Delete game by Id
 export async function deleteGameById(req, res) {
   try {
-    const id = req.params.id; 
+    const id = req.params.id;
     const game = await removeGameByIdFromDB(id); 
 
-    if (!game) {
+    
+    res.status(204).send(); 
+  } catch (error) {
+  
+    if (error.message.includes("not found")) {
       return res.status(404).json({
         status: "fail",
-        message: "Game not found",
+        message: error.message,
       });
     }
 
-    res.status(204).send(); 
-  } catch (error) {
+    // For any other error, return 500 Internal Server Error so its easy to tell what the issue is 
     res.status(500).json({
       status: "error",
       message: error.message,
