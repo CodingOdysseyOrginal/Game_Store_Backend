@@ -1,4 +1,4 @@
-// Utility function to validate required fields
+// Function to validate required fields
 //This is to check if the game is passing the correct data for a new game to be created. 
 function validateRequiredFields(fields) {
   const missingFields = Object.keys(fields).filter((field) => fields[field] === undefined || fields[field] === null);
@@ -11,7 +11,8 @@ import {
   getGameFromDB,
   getGameIdFromDB,
   insertGameToDB,
-  upDateGameByIdConnectedToDB
+  upDateGameByIdConnectedToDB,
+  removeGameByIdFromDB
 } from "../models/games.js"; 
 
 // GET all request
@@ -102,4 +103,25 @@ export async function updateGameByID(req, res) {
   }
 }
 
+//Delete game by Id
+export async function deleteGameById(req, res) {
+  try {
+    const id = req.params.id; 
+    const game = await removeGameByIdFromDB(id); 
+
+    if (!game) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Game not found",
+      });
+    }
+
+    res.status(204).send(); 
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
 

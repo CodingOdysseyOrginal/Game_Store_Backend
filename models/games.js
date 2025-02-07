@@ -124,3 +124,29 @@ export async function upDateGameByIdConnectedToDB(gameId, updates) {
     throw new Error(error.message);
   }
 }
+
+// Remove a game by ID from the database
+export async function removeGameByIdFromDB(gameId) {
+  try {
+    if (!gameId) throw new Error("Game ID is required.");
+
+    const { data, error } = await supabase
+      .from('game')
+      .delete()
+      .eq('id', gameId)
+      .select(); 
+
+    if (error) {
+      throw new Error(`Error deleting game: ${error.message}`);
+    }
+//Make sure the correct ID is being selected
+    if (!data.length) {
+      throw new Error(`Game with ID ${gameId} not found.`);
+    }
+
+    return { message: `Game with ID ${gameId} successfully deleted.`, deletedGame: data[0] };
+  } catch (error) {
+    console.error("Error deleting game from database:", error.message);
+    throw new Error(error.message);
+  }
+}
